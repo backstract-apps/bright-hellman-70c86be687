@@ -1,0 +1,24 @@
+kind: HTTPScaledObject
+apiVersion: http.keda.sh/v1alpha1
+metadata:
+  name: bright-hellman-70c86be687-scaler
+  namespace: apps-prod
+spec:
+  hosts:
+    - cc1fbde45ead-in-south-01.mayson.dev
+  pathPrefixes:
+    - /eu-west-2-backstractelb-9c6591-coll-ed6ce8034bdc421d8318b23f8ccca033/ # e.g. /infallible-naveen-... bright-hellman-70c86be687/
+  scaleTargetRef:
+    name: bright-hellman-70c86be687-depl
+    kind: Deployment
+    apiVersion: apps/v1
+    service: bright-hellman-70c86be687-srv # e.g. coll-8a2a...-srv
+    port: 80
+  replicas:
+    min: 0
+    max: 10
+  scaledownPeriod: 604800 #inseconds
+  scalingMetric:
+    requestRate:
+      targetValue: 100
+      window: 1m

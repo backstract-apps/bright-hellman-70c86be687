@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bright-hellman-70c86be687-srv
+  namespace: apps-prod
+spec:
+  selector:
+    app: bright-hellman-70c86be687
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7070
+  type: ClusterIP
